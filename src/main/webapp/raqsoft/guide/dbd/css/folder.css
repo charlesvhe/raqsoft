@@ -1,0 +1,12 @@
+.fileOut{
+	float:left;
+	text-align: center;
+}
+
+.file,.folder{
+	border:solid 1px;
+	border-color: #eeeeee;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

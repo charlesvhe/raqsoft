@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
+"http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+
+<!--
+	view="simple/olap"
+	olap="<%=grpx %>"
+	dataSource="<%=dataSource %>"
+  	fixedTable="<%=fixedTable %>"
+	ql="<%=ql %>"
+  	dfxFile="<%=dfxFile %>"
+  	dfxScript="<%=dfxScript %>"
+  	dfxParams="<%=dfxParams %>"
+  	inputFiles="<%=inputFiles %>"
+	
+	queryPage="/raqsoft/guide/jsp/guide.jsp"
+	simplePage="/raqsoft/guide/jsp/analyse.jsp"
+	olapPage="/raqsoft/guide/jsp/analyse.jsp"
+	reportPage="/raqsoft/guide/jsp/showReport.jsp"
+  	maxDataSize="10000"
+  	maxReportSize="50000"
+  	olapFolderOnServer="/WEB-INF/files/olap/"
+  	dataFolderOnServer="/WEB-INF/files/data/"
+  	dfxFolderOnServer="/WEB-INF/files/dfx/"
+  	inputFileFolderOnServer="/WEB-INF/files/inputFile/"
+  	rpxFolderOnServer="/WEB-INF/files/rpx/"
+  	
+  	outerCondition="<%=outerCondition %>"
+  	dimDataOnServer="/WEB-INF/files/data/temp/dimData.json"
+	dataFileType="<%=dataFileType %>"
+
+-->
+<taglib>
+  <tlibversion>1.0</tlibversion>
+  <jspversion>1.1</jspversion>
+  <shortname>Runqian Guide Report Tags</shortname>
+  <tag>
+    <name>analyse_c</name>
+    <tagclass>com.raqsoft.guide.ctxtag.AnalyseTag</tagclass>
+    <bodycontent>JSP</bodycontent>
+	<!--
+	view：simple/olap，不指定时，默认到olap
+	-->
+    <attribute>
+      <name>view</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 相对于web根目录的olap文件或olap文件内容 -->
+    <attribute>
+      <name>olap</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 刷新lmd -->
+    <attribute>
+      <name>resetLmd</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 数据库数据源 -->
+    <attribute>
+      <name>dataSource</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- glmd生成临时数据源名 -->
+    <attribute>
+      <name>tempDBName</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 查询语言，sql或dql-->
+    <attribute>
+      <name>ql</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- dfx文件数据源 -->
+    <attribute>
+      <name>dfxFile</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- dfx脚本数据源 -->
+    <attribute>
+      <name>dfxScript</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- dfx参数 -->
+    <attribute>
+      <name>dfxParams</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 要分析的填报文件列表，相对于WEB根目录，多个以分号隔开 -->
+    <attribute>
+      <name>inputFiles</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 默认/raqsoft/guide/jsp/query.jsp -->
+    <attribute>
+      <name>queryPage</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 默认是当前访问的页面 ，预留，暂无用
+    <attribute>
+      <name>simplePage</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    -->
+    <!-- 默认是当前访问的页面 -->
+    <attribute>
+      <name>olapPage</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 默认{raqsoftDir}/jsp/showReport.jsp-->
+    <attribute>
+      <name>reportPage</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 默认"10000"，数据集记录最大数，明细数据集或分组聚合后的数据集，超出这个数量的数据将不被处理，得到的是不完整结果-->
+    <attribute>
+      <name>maxDataSize</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 默认"50000"， 报表最大容量（最细粒度左表头数量*最细粒度上表头数量），超出这个数量报错，不能生成报表；提示减少分组/弃用交叉报表重新生成报表-->
+    <attribute>
+      <name>maxReportSize</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 服务器上olap文件的根目录，默认/WEB-INF/files/olap/ -->
+    <attribute>
+      <name>olapFolderOnServer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 服务器上grpx的缓存数据文件的根目录，默认/WEB-INF/files/data/ -->
+    <attribute>
+      <name>dataFolderOnServer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 服务器上dfx文件的根目录，默认/WEB-INF/files/dfx/ -->
+    <attribute>
+      <name>dfxFolderOnServer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 服务器上填报数据文件的根目录 ，默认/WEB-INF/files/inputFile/-->
+    <attribute>
+      <name>inputFileFolderOnServer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 服务器上报表模板的根目录，默认/WEB-INF/files/rpx/ -->
+    <attribute>
+      <name>rpxFolderOnServer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 服务器上保存结果报表文件的文件前缀，默认/WEB-INF/files/resultRpx/；当设置"/WEB-INF/files/resultRpx/user1_"时，user1_是文件名的一部分，不是目录 -->
+    <attribute>
+      <name>resultRpxPrefixOnServer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- dql数据源时，指定只显示fixedTable表，做dql单表查询/填报数据源时，指定要分析的表-->
+    <attribute>
+      <name>fixedTable</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 针对元数据里每个表设置的外部条件json，形如：[{"table":"雇员","exp":"${T}.雇员='2'"},{"table":"省","exp":"${T}.名称='天津'"}] -->
+    <attribute>
+      <name>outerCondition</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 维值数据，多层的维会自动生成树状数据；默认/WEB-INF/files/data/temp/dimData.json，没有这个文件的时候，根据当前dql数据源自动生成，生成后用户可以根据自己的需求自己再修改这些数据 -->
+    <attribute>
+      <name>dimDataOnServer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 数据文件类型，text采用全内存操作，默认text；binary采用游标操作，游标操作需要高版本的集算器授权 -->
+    <attribute>
+      <name>dataFileType</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 自定义报表显示样式的Rpx，通过修改这个rpx里的样式改变分析报表的样式；默认/WEB-INF/files/style.rpx，路径相对于fileHome属性 -->   
+    <attribute>
+      <name>styleRpx</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>       
+    <!-- 是否可以编辑数据集，yes/no，默认yes -->
+    <attribute>
+      <name>canEditDataSet</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>       
+    <!-- 是否可以编辑报表，yes/no，默认yes -->  
+    <attribute>
+      <name>canEditReport</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>       
+    <!-- 打开olap时，优先用历史报表做展示，yes/no，默认no -->   
+    <attribute>
+      <name>showHistoryRpx</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>       
+  </tag>
+  <tag>
+    <name>analysev2</name>
+    <tagclass>com.raqsoft.guide.tag.AnalyseTag</tagclass>
+    <bodycontent>JSP</bodycontent>
+    <!-- 相对于web根目录的olap文件或olap文件内容 -->
+    <attribute>
+      <name>olap</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>sqlType</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+     <attribute>
+      <name>dataFileType</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 数据库数据源 -->
+    <attribute>
+      <name>dataSource</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 查询语言，sql或dql-->
+    <attribute>
+      <name>ql</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- dfx文件数据源 -->
+    <attribute>
+      <name>dfxFile</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- dfx脚本数据源 -->
+    <attribute>
+      <name>dfxScript</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- dfx参数 -->
+    <attribute>
+      <name>dfxParams</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 要分析的填报文件列表，相对于WEB根目录，多个以分号隔开 -->
+    <attribute>
+      <name>inputFiles</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- dql数据源时，指定只显示fixedTable表，做dql单表查询/填报数据源时，指定要分析的表-->
+    <attribute>
+      <name>fixedTable</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+     <!-- 打开olap时，优先用历史报表做展示，yes/no，默认no-->   
+    <attribute>
+      <name>showHistoryRpx</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>      
+  </tag>
+  <tag>
+	<name>dashboard</name>
+    <tagclass>com.raqsoft.guide.tag.LayoutDashboardTag2</tagclass>
+    <bodycontent>JSP</bodycontent>
+    <!--view：simple/olap，不指定时，默认到olap	-->
+    <attribute>
+      <name>view</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 相对于web根目录的olap文件或olap文件内容 -->
+    <attribute>
+      <name>olap</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 相对于web根目录的dbd文件或dbd文件内容 -->
+    <attribute>
+      <name>dbd</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 数据库数据源 -->
+    <attribute>
+      <name>dataSource</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 查询语言，sql或dql-->
+    <attribute>
+      <name>ql</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- dfx文件数据源 -->
+    <attribute>
+      <name>dfxFile</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- dfx脚本数据源 -->
+    <attribute>
+      <name>dfxScript</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- dfx参数 -->
+    <attribute>
+      <name>dfxParams</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 要分析的填报文件列表，相对于WEB根目录，多个以分号隔开 -->
+    <attribute>
+      <name>inputFiles</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 默认{raqsoftDir}/jsp/showReport.jsp-->
+    <attribute>
+      <name>reportPage</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 默认"10000"，数据集记录最大数，明细数据集或分组聚合后的数据集，超出这个数量的数据将不被处理，得到的是不完整结果-->
+    <attribute>
+      <name>maxDataSize</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 默认"50000"， 报表最大容量（最细粒度左表头数量*最细粒度上表头数量），超出这个数量报错，不能生成报表；提示减少分组/弃用交叉报表重新生成报表-->
+    <attribute>
+      <name>maxReportSize</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 服务器上olap文件的根目录，默认/WEB-INF/files/olap/ -->
+    <attribute>
+      <name>olapFolderOnServer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 服务器上grpx的缓存数据文件的根目录，默认/WEB-INF/files/data/ -->
+    <attribute>
+      <name>dataFolderOnServer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 服务器上dfx文件的根目录，默认/WEB-INF/files/dfx/ -->
+    <attribute>
+      <name>dfxFolderOnServer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 服务器上填报数据文件的根目录 ，默认/WEB-INF/files/inputFile/-->
+    <attribute>
+      <name>inputFileFolderOnServer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 服务器上报表模板的根目录，默认/WEB-INF/files/rpx/ -->
+    <attribute>
+      <name>rpxFolderOnServer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 服务器上保存结果报表文件的文件前缀，默认/WEB-INF/files/resultRpx/；当设置"/WEB-INF/files/resultRpx/user1_"时，user1_是文件名的一部分，不是目录 -->
+    <attribute>
+      <name>resultRpxPrefixOnServer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- dql数据源时，指定只显示fixedTable表，做dql单表查询/填报数据源时，指定要分析的表-->
+    <attribute>
+      <name>fixedTable</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 维值数据，多层的维会自动生成树状数据；默认/WEB-INF/files/data/temp/dimData.json，没有这个文件的时候，根据当前dql数据源自动生成，生成后用户可以根据自己的需求自己再修改这些数据 -->
+    <attribute>
+      <name>dimDataOnServer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 数据文件类型，text采用全内存操作，默认text；binary采用游标操作，游标操作需要高版本的集算器授权 -->
+    <attribute>
+      <name>dataFileType</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 自定义报表显示样式的Rpx，通过修改这个rpx里的样式改变分析报表的样式；默认/WEB-INF/files/style.rpx，路径相对于fileHome属性 -->   
+    <attribute>
+      <name>styleRpx</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>           
+  </tag>
+    <tag>
+	<name>dashboard_c</name>
+    <tagclass>com.raqsoft.guide.ctxtag.LayoutDashboardTag4Ctx</tagclass>
+    <bodycontent>JSP</bodycontent>
+    <!--
+	view：simple/olap，不指定时，默认到olap
+	-->
+    <attribute>
+      <name>view</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 相对于web根目录的olap文件或olap文件内容 -->
+    <attribute>
+      <name>olap</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 数据库数据源 -->
+    <attribute>
+      <name>dataSource</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 查询语言，sql或dql-->
+    <attribute>
+      <name>ql</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- dfx文件数据源 -->
+    <attribute>
+      <name>dfxFile</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- dfx脚本数据源 -->
+    <attribute>
+      <name>dfxScript</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- dfx参数 -->
+    <attribute>
+      <name>dfxParams</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 要分析的填报文件列表，相对于WEB根目录，多个以分号隔开 -->
+    <attribute>
+      <name>inputFiles</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 默认/raqsoft/guide/jsp/query.jsp -->
+    <attribute>
+      <name>queryPage</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 默认是当前访问的页面 ，预留，暂无用
+    <attribute>
+      <name>simplePage</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    -->
+    <!-- 默认是当前访问的页面 -->
+    <attribute>
+      <name>olapPage</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 默认{raqsoftDir}/jsp/showReport.jsp-->
+    <attribute>
+      <name>reportPage</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 默认"10000"，数据集记录最大数，明细数据集或分组聚合后的数据集，超出这个数量的数据将不被处理，得到的是不完整结果-->
+    <attribute>
+      <name>maxDataSize</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 默认"50000"， 报表最大容量（最细粒度左表头数量*最细粒度上表头数量），超出这个数量报错，不能生成报表；提示减少分组/弃用交叉报表重新生成报表-->
+    <attribute>
+      <name>maxReportSize</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 服务器上olap文件的根目录，默认/WEB-INF/files/olap/ -->
+    <attribute>
+      <name>olapFolderOnServer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 服务器上grpx的缓存数据文件的根目录，默认/WEB-INF/files/data/ -->
+    <attribute>
+      <name>dataFolderOnServer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 服务器上dfx文件的根目录，默认/WEB-INF/files/dfx/ -->
+    <attribute>
+      <name>dfxFolderOnServer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 服务器上填报数据文件的根目录 ，默认/WEB-INF/files/inputFile/-->
+    <attribute>
+      <name>inputFileFolderOnServer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 服务器上报表模板的根目录，默认/WEB-INF/files/rpx/ -->
+    <attribute>
+      <name>rpxFolderOnServer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 服务器上保存结果报表文件的文件前缀，默认/WEB-INF/files/resultRpx/；当设置"/WEB-INF/files/resultRpx/user1_"时，user1_是文件名的一部分，不是目录 -->
+    <attribute>
+      <name>resultRpxPrefixOnServer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- dql数据源时，指定只显示fixedTable表，做dql单表查询/填报数据源时，指定要分析的表-->
+    <attribute>
+      <name>fixedTable</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 针对元数据里每个表设置的外部条件json，形如：[{"table":"雇员","exp":"${T}.雇员='2'"},{"table":"省","exp":"${T}.名称='天津'"}] -->
+    <attribute>
+      <name>outerCondition</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 维值数据，多层的维会自动生成树状数据；默认/WEB-INF/files/data/temp/dimData.json，没有这个文件的时候，根据当前dql数据源自动生成，生成后用户可以根据自己的需求自己再修改这些数据 -->
+    <attribute>
+      <name>dimDataOnServer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 数据文件类型，text采用全内存操作，默认text；binary采用游标操作，游标操作需要高版本的集算器授权 -->
+    <attribute>
+      <name>dataFileType</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 自定义报表显示样式的Rpx，通过修改这个rpx里的样式改变分析报表的样式；默认/WEB-INF/files/style.rpx，路径相对于fileHome属性 -->   
+    <attribute>
+      <name>styleRpx</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>       
+    <!-- 是否可以编辑数据集，yes/no，默认yes -->
+    <attribute>
+      <name>canEditDataSet</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>       
+    <!-- 是否可以编辑报表，yes/no，默认yes -->  
+    <attribute>
+      <name>canEditReport</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>       
+    <!-- 打开olap时，优先用历史报表做展示，yes/no，默认no-->   
+    <attribute>
+      <name>showHistoryRpx</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>       
+     <attribute>
+      <name>tempDBName</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 刷新lmd -->
+    <attribute>
+      <name>resetLmd</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+</taglib>
+  	
+  	

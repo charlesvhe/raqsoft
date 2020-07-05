@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
+"http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+
+<!--
+	qyx
+	dataSource
+  	qyxFolderOnServer
+  	outerCondition
+  	dimDataOnServer
+
+	showToolBar
+	showSubTable
+	showNullGroup
+	detectLevel
+-->
+
+<taglib>
+  <tlibversion>1.0</tlibversion>
+  <jspversion>1.1</jspversion>
+  <shortname>Runqian Guide Report Tags</shortname>
+  <tag>
+    <name>detailQuery_c</name>
+    <tagclass>com.raqsoft.guide.ctxtag.QueryTag</tagclass>
+    <bodycontent>JSP</bodycontent>
+    <!-- 相对于web根目录的qyx文件或qyx文件内容 -->
+    <attribute>
+      <name>qyx</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 数据库数据源 -->
+    <attribute>
+      <name>dataSource</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- glmd生成临时数据源名 -->
+    <attribute>
+      <name>tempDBName</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+
+  <tag>
+    <name>detailQuery</name>
+    <tagclass>com.raqsoft.guide.tag.QueryTag</tagclass>
+    <bodycontent>JSP</bodycontent>
+    <!-- 相对于web根目录的qyx文件或qyx文件内容 -->
+    <attribute>
+      <name>qyx</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 数据库数据源 -->
+    <attribute>
+      <name>dataSource</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+</taglib>
+  	
+  	

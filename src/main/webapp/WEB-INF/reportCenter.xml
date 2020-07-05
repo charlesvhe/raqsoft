@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportCenter>
+	<!-- 超级管理员密码初始为a000000 -->
+	<managerPass>82273A6BA2126D3AF24CE2D0CB0AF515</managerPass>
+	<roles>
+		<newId>6</newId>
+		<role name="超级管理员" roleId="0" allAuth="true" nodeList="" />
+		<!-- 不可修改 -->
+		<role name="管理员" roleId="1" allAuth="true" nodeList="" />
+		<!-- 不可修改 -->
+		<role name="访客" roleId="-1" dirmodeRptList="00Dashboard,1;10基本报表,1;20高级报表,1;30交互报表,1;40集算器相关,1;50统计图形,1;60金融行业,1;70交通运输,1;80能源行业,1;90更多报表,1" nodeList="1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;25;26;27;28;29;30;31;32;33;34;35;36;37;38;39;40;41;42;43;44;45;46;47;48;49;50;51;52;53;54;55;56;57;58;59;60;61;62;63;64;65;66;67;68;69;70;71;72;73;74;75;76;81;78;79;80;77;94;98;95" dsList="demo" dirmodeDfxList="" />
+		<!-- 不可修改 -->
+		<role roleId="2" name="副总裁" dsList="" dirmodeRptList="" dirmodeDfxList="" nodeList="81;85;84;83;88;87;86;91;90;89;93;92" />
+		<role roleId="3" name="销售经理" dsList="" dirmodeRptList="" dirmodeDfxList="" nodeList="81;84;85;88;87;86;91;90;89" />
+		<role roleId="4" name="销售代表" dsList="" dirmodeRptList="" dirmodeDfxList="" nodeList="81;84;85;88;87;86;91;90;89" />
+	</roles>
+	<users>
+		<newId>5</newId>
+		<!-- 用户名raq_visitor，密码初始a000000，不可删除 -->
+		<user id="-1" name="raq_visitor" roleId="-1" password="82273A6BA2126D3AF24CE2D0CB0AF515" />
+		<user id="1" name="王伟" roleId="2" password="82273A6BA2126D3AF24CE2D0CB0AF515">
+			<DqlMacro vsb="WEB-INF/reportFiles/vsbs/sales.vsb" filters="" acId="_raqsoft_outerCondition_" params="雇员=王伟" />
+		</user>
+		<user id="2" name="郑建杰" roleId="3" password="82273A6BA2126D3AF24CE2D0CB0AF515">
+			<DqlMacro vsb="WEB-INF/reportFiles/vsbs/sales.vsb" filters="" acId="_raqsoft_outerCondition_" params="雇员=郑建杰" />
+		</user>
+		<user id="3" name="张颖" roleId="4" password="82273A6BA2126D3AF24CE2D0CB0AF515">
+			<DqlMacro vsb="WEB-INF/reportFiles/vsbs/sales.vsb" filters="" acId="_raqsoft_outerCondition_" params="雇员=张颖" />
+		</user>
+		<user id="4" name="李芳" roleId="4" password="82273A6BA2126D3AF24CE2D0CB0AF515">
+			<DqlMacro vsb="WEB-INF/reportFiles/vsbs/sales.vsb" filters="" acId="_raqsoft_outerCondition_" params="雇员=李芳" />
+		</user>
+	</users>
+	<dbs>
+		<db name="DataLogic">
+			<dct>dcts/demo.dct</dct>
+			<vsb>vsbs/demo.vsb</vsb>
+			<vsb>vsbs/sales.vsb</vsb>
+		</db>
+	</dbs>
+	<files>
+		<dct>dcts/demo.dct</dct>
+		<vsb>vsbs/demo.vsb</vsb>
+		<xls>analyseFiles/demo.xls</xls>
+		<xlsx>analyseFiles/demo.xlsx</xlsx>
+		<csv>analyseFiles/demo_gbk.csv</csv>
+		<txt>analyseFiles/demo_gbk.txt</txt>
+		<csv>analyseFiles/demo_utf-8.csv</csv>
+		<txt>analyseFiles/demo_utf-8.txt</txt>
+		<olap>analyseFiles/DQL样例.olap</olap>
+		<olap>analyseFiles/SQL分析.olap</olap>
+		<olap>analyseFiles/填报分析.olap</olap>
+		<olap>analyseFiles/雇员客户分析.olap</olap>
+		<olap>analyseFiles/雇员商品分析.olap</olap>
+		<olap>analyseFiles/区域月度订单.olap</olap>
+		<olap>analyseFiles/月度回款分析.olap</olap>
+		<olap>analyseFiles/区域订单回款.olap</olap>
+		<olap>analyseFiles/客户回款分析.olap</olap>
+		<olap>analyseFiles/客户区域分析.olap</olap>
+		<olap>analyseFiles/客户签单分析.olap</olap>
+		<vsb>vsbs/sales.vsb</vsb>
+	</files>
+	<paths>
+		<path value="" />
+		<!-- 文件次级目录  -->
+		<path value="input" />
+		<path value="dcts" />
+		<path value="vsbs" />
+		<path value="analyseFiles" />
+		<path value="00Dashboard" />
+		<path value="10基本报表" />
+		<path value="20高级报表" />
+		<path value="30交互报表" />
+		<path value="40集算器相关" />
+		<path value="50统计图形" />
+		<path value="60金融行业" />
+		<path value="70交通运输" />
+		<path value="80能源行业" />
+		<path value="90更多报表" />
+	</paths>
+	<tree>
+		<newId>99</newId>
+		<!-- 初始为 1 -->
+		<name url="welcome.jsp" scale="1.0" paged="0" scroll="0" raq="demo/01基本报表/01网格式报表.rpx" rpt="00Dashboard/订单综合分析.rpx">润乾报表DEMO</name>
+		<node id="1" type="0" roles="1=-1;2=-1" label="Dashboard">
+			<node id="11" type="1" roles="1=-1;2=-1" rpt="00Dashboard/手机销售分析.rpx" label="手机销售分析" scale="1.0" paged="0" scroll="0" />
+			<node id="12" type="1" roles="1=-1;2=-1" rpt="00Dashboard/订单综合分析.rpx" label="订单综合分析" scale="1.0" paged="0" scroll="0" />
+			<node id="13" type="1" roles="1=-1;2=-1" rpt="00Dashboard/设备故障分析.rpx" label="设备故障分析" scale="1.0" paged="0" scroll="0" />
+		</node>
+		<node id="2" type="0" roles="1=-1;2=-1" label="基本报表">
+			<node id="14" type="1" roles="1=-1;2=-1" rpt="10基本报表/分组报表.rpx" label="分组报表" scale="1.0" paged="0" scroll="0" />
+			<node id="15" type="1" roles="1=-1;2=-1" rpt="10基本报表/网格式报表.rpx" label="网格式报表" scale="1.0" paged="0" scroll="0" />
+			<node id="16" type="1" roles="1=-1;2=-1" rpt="10基本报表/报表组.rpg" label="报表组" form="10基本报表/报表组_arg.rpx" scale="1.0" paged="0" scroll="0" />
+		</node>
+		<node id="3" type="0" roles="1=-1;2=-1" label="高级报表">
+			<node id="17" type="1" roles="1=-1;2=-1" rpt="20高级报表/交叉表动态合并格.rpx" label="交叉表动态合并格" scale="1.0" paged="0" scroll="0" />
+			<node id="18" type="1" roles="1=-1;2=-1" rpt="20高级报表/复杂格间计算.rpx" label="复杂格间计算" scale="1.0" paged="0" scroll="0" />
+			<node id="19" type="1" roles="1=-1;2=-1" rpt="20高级报表/多选模糊查询.rpx" label="多选模糊查询" form="20高级报表/多选模糊查询_arg.rpx" scale="1.0" paged="0" scroll="0" />
+			<node id="20" type="1" roles="1=-1;2=-1" rpt="20高级报表/层次坐标周期取数.rpx" label="层次坐标周期取数" scale="1.0" paged="0" scroll="0" />
+			<node id="21" type="1" roles="1=-1;2=-1" rpt="20高级报表/条形码错位显示.rpx" label="条形码错位显示" scale="1.0" paged="0" scroll="0" />
+			<node id="22" type="1" roles="1=-1;2=-1" rpt="20高级报表/组内页码及补空行.rpx" label="组内页码及补空行" scale="1.0" paged="0" scroll="0" />
+			<node id="23" type="1" roles="1=-1;2=-1" rpt="20高级报表/龙型排序考生号.rpx" label="龙型排序考生号" scale="1.0" paged="0" scroll="0" />
+		</node>
+		<node id="4" type="0" roles="1=-1;2=-1" label="交互报表">
+			<node id="24" type="1" roles="1=-1;2=-1" rpt="30交互报表/地图联动.rpg" label="地图联动" scale="1.0" paged="0" scroll="0" />
+			<node id="25" type="1" roles="1=-1;2=-1" rpt="30交互报表/表格联动.rpg" label="表格联动" scale="1.0" paged="0" scroll="0" />
+			<node id="26" type="1" roles="1=-1;2=-1" rpt="30交互报表/汇总伸缩表.rpx" label="汇总伸缩表" scale="1.0" paged="0" scroll="0" isOlap="yes" />
+			<node id="27" type="1" roles="1=-1;2=-1" rpt="30交互报表/动态交叉表.rpx" label="动态交叉表" form="30交互报表/动态交叉表_arg.rpx" scale="1.0" paged="0" scroll="0" />
+			<node id="28" type="1" roles="1=-1;2=-1" rpt="30交互报表/点上表头排序.rpx" label="点上表头排序" scale="1.0" paged="0" scroll="0" />
+			<node id="29" type="1" roles="1=-1;2=-1" rpt="30交互报表/组合查询条件.rpx" label="组合查询条件" form="30交互报表/组合查询条件_arg.rpx" scale="1.0" paged="0" scroll="0" />
+			<node id="94" type="1" rpt="30交互报表/动态列.rpx" label="动态列" form="30交互报表/动态列_arg.rpx" scale="1.0" paged="0" scroll="0" roles="1=-1;2=-1" />
+		</node>
+		<node id="5" type="0" roles="1=-1;2=-1" label="集算器相关">
+			<node id="30" type="1" roles="1=-1;2=-1" rpt="40集算器相关/交叉报表.rpx" label="交叉报表" scale="1.0" paged="0" scroll="0" />
+			<node id="31" type="1" roles="1=-1;2=-1" rpt="40集算器相关/同期比.rpx" label="同期比" scale="1.0" paged="0" scroll="0" />
+			<node id="32" type="1" roles="1=-1;2=-1" rpt="40集算器相关/地铁综合查询.rpx" label="地铁综合查询" scale="1.0" paged="0" scroll="0" form="40集算器相关/地铁综合查询_arg.rpx" />
+			<node id="33" type="1" roles="1=-1;2=-1" rpt="40集算器相关/多源分片.rpx" label="多源分片" scale="1.0" paged="0" scroll="0" />
+			<node id="34" type="1" roles="1=-1;2=-1" rpt="40集算器相关/子表动态插入主表.rpx" label="子表动态插入主表" scale="1.0" paged="0" scroll="0" />
+			<node id="35" type="1" roles="1=-1;2=-1" rpt="40集算器相关/库间关联.rpx" label="库间关联" scale="1.0" paged="0" scroll="0" />
+			<node id="36" type="1" roles="1=-1;2=-1" rpt="40集算器相关/归并分组.rpx" label="归并分组" scale="1.0" paged="0" scroll="0" />
+			<node id="37" type="1" roles="1=-1;2=-1" rpt="40集算器相关/按段分组.rpx" label="按段分组" scale="1.0" paged="0" scroll="0" />
+			<node id="38" type="1" roles="1=-1;2=-1" rpt="40集算器相关/条件控制分组格式.rpx" label="条件控制分组格式" scale="1.0" paged="0" scroll="0" />
+			<node id="39" type="1" roles="1=-1;2=-1" rpt="40集算器相关/横向分栏.rpx" label="横向分栏" scale="1.0" paged="0" scroll="0" />
+			<node id="40" type="1" roles="1=-1;2=-1" rpt="40集算器相关/横向拼接列表.rpx" label="横向拼接列表" scale="1.0" paged="0" scroll="0" />
+			<node id="41" type="1" roles="1=-1;2=-1" rpt="40集算器相关/错行分栏.rpx" label="错行分栏" scale="1.0" paged="0" scroll="0" />
+		</node>
+		<node id="6" type="0" roles="1=-1;2=-1" label="统计图形">
+			<node id="42" type="1" roles="1=-1;2=-1" rpt="50统计图形/仪表盘.rpx" label="仪表盘" scale="1.0" paged="0" scroll="0" />
+			<node id="43" type="1" roles="1=-1;2=-1" rpt="50统计图形/全距图.rpx" label="全距图" scale="1.0" paged="0" scroll="0" />
+			<node id="44" type="1" roles="1=-1;2=-1" rpt="50统计图形/动态仪表盘.rpx" label="动态仪表盘" scale="1.0" paged="0" scroll="0" />
+			<node id="45" type="1" roles="1=-1;2=-1" rpt="50统计图形/动态地图.rpx" label="动态地图" scale="1.0" paged="0" scroll="0" />
+			<node id="46" type="1" roles="1=-1;2=-1" rpt="50统计图形/动态折线图.rpx" label="动态折线图" scale="1.0" paged="0" scroll="0" />
+			<node id="47" type="1" roles="1=-1;2=-1" rpt="50统计图形/动态曲线图.rpx" label="动态曲线图" scale="1.0" paged="0" scroll="0" />
+			<node id="48" type="1" roles="1=-1;2=-1" rpt="50统计图形/动态柱状图.rpx" label="动态柱状图" scale="1.0" paged="0" scroll="0" />
+			<node id="49" type="1" roles="1=-1;2=-1" rpt="50统计图形/动态饼图.rpx" label="动态饼图" scale="1.0" paged="0" scroll="0" />
+			<node id="50" type="1" roles="1=-1;2=-1" rpt="50统计图形/工字图.rpx" label="工字图" scale="1.0" paged="0" scroll="0" />
+			<node id="51" type="1" roles="1=-1;2=-1" rpt="50统计图形/折线图.rpx" label="折线图" scale="1.0" paged="0" scroll="0" />
+			<node id="52" type="1" roles="1=-1;2=-1" rpt="50统计图形/时序状态图.rpx" label="时序状态图" scale="1.0" paged="0" scroll="0" />
+			<node id="53" type="1" roles="1=-1;2=-1" rpt="50统计图形/时间走势图.rpx" label="时间走势图" scale="1.0" paged="0" scroll="0" />
+			<node id="54" type="1" roles="1=-1;2=-1" rpt="50统计图形/条形图.rpx" label="条形图" scale="1.0" paged="0" scroll="0" />
+			<node id="55" type="1" roles="1=-1;2=-1" rpt="50统计图形/甘特图.rpx" label="甘特图" scale="1.0" paged="0" scroll="0" />
+			<node id="56" type="1" roles="1=-1;2=-1" rpt="50统计图形/雷达图.rpx" label="雷达图" scale="1.0" paged="0" scroll="0" />
+			<node id="57" type="1" roles="1=-1;2=-1" rpt="50统计图形/饼图.rpx" label="饼图" scale="1.0" paged="0" scroll="0" />
+		</node>
+		<node id="7" type="0" roles="1=-1;2=-1" label="金融行业">
+			<node id="58" type="1" roles="1=-1;2=-1" rpt="60金融行业/1104报表G01.rpx" label="1104报表G01" scale="1.0" paged="0" scroll="0" />
+			<node id="59" type="1" roles="1=-1;2=-1" rpt="60金融行业/保险单.rpx" label="保险单" scale="1.0" paged="0" scroll="0" />
+			<node id="60" type="1" roles="1=-1;2=-1" rpt="60金融行业/证券公司经营统计.rpx" label="证券公司经营统计" scale="1.0" paged="0" scroll="0" />
+			<node id="61" type="1" roles="1=-1;2=-1" rpt="60金融行业/贷款展期审批书.rpx" label="贷款展期审批书" scale="1.0" paged="0" scroll="0" />
+			<node id="62" type="1" roles="1=-1;2=-1" rpt="60金融行业/资产负债表.rpx" label="资产负债表" scale="1.0" paged="0" scroll="0" />
+		</node>
+		<node id="8" type="0" roles="1=-1;2=-1" label="交通运输">
+			<node id="63" type="1" roles="1=-1;2=-1" rpt="70交通运输/客运车辆类型.rpx" label="客运车辆类型" scale="1.0" paged="0" scroll="0" />
+			<node id="64" type="1" roles="1=-1;2=-1" rpt="70交通运输/工程项目收益.rpx" label="工程项目收益" scale="1.0" paged="0" scroll="0" />
+			<node id="65" type="1" roles="1=-1;2=-1" rpt="70交通运输/维修网点概况.rpx" label="维修网点概况" scale="1.0" paged="0" scroll="0" />
+			<node id="66" type="1" roles="1=-1;2=-1" rpt="70交通运输/货运新增车辆.rpx" label="货运新增车辆" scale="1.0" paged="0" scroll="0" />
+			<node id="67" type="1" roles="1=-1;2=-1" rpt="70交通运输/重点工程周报.rpx" label="重点工程周报" scale="1.0" paged="0" scroll="0" />
+		</node>
+		<node id="9" type="0" roles="1=-1;2=-1" label="能源行业">
+			<node id="68" type="1" roles="1=-1;2=-1" rpt="80能源行业/发电设备调查.rpx" label="发电设备调查" scale="1.0" paged="0" scroll="0" />
+			<node id="69" type="1" roles="1=-1;2=-1" rpt="80能源行业/检验质量证明.rpx" label="检验质量证明" scale="1.0" paged="0" scroll="0" />
+			<node id="70" type="1" roles="1=-1;2=-1" rpt="80能源行业/用电分类统计.rpx" label="用电分类统计" scale="1.0" paged="0" scroll="0" />
+			<node id="71" type="1" roles="1=-1;2=-1" rpt="80能源行业/能源月报表.rpx" label="能源月报表" scale="1.0" paged="0" scroll="0" />
+			<node id="72" type="1" roles="1=-1;2=-1" rpt="80能源行业/能源生产日志.rpx" label="能源生产日志" scale="1.0" paged="0" scroll="0" />
+		</node>
+		<node id="10" type="0" roles="1=-1;2=-1" label="更多报表">
+			<node id="73" type="1" roles="1=-1;2=-1" rpt="90更多报表/企业物流单.rpx" label="企业物流单" scale="1.0" paged="0" scroll="0" />
+			<node id="74" type="1" roles="1=-1;2=-1" rpt="90更多报表/公积金清册.rpx" label="公积金清册" scale="1.0" paged="0" scroll="0" />
+			<node id="75" type="1" roles="1=-1;2=-1" rpt="90更多报表/卷烟产值计算表.rpx" label="卷烟产值计算表" scale="1.0" paged="0" scroll="0" />
+			<node id="76" type="1" roles="1=-1;2=-1" rpt="90更多报表/抽油机井指标统计.rpx" label="抽油机井指标统计" scale="1.0" paged="0" scroll="0" />
+		</node>
+		<node id="77" type="0" roles="1=-1;2=-1" label="数据分析">
+			<node id="79" type="4" label="SQL分析" anaFile="analyseFiles/SQL分析.olap" analyseType="dataFile" roles="1=-1;2=-1" />
+			<node id="80" type="4" label="填报分析" anaFile="analyseFiles/填报分析.olap" analyseType="dataFile" roles="1=-1;2=-1" />
+		</node>
+		<node id="95" type="0" label="数据分析（需DQL授权）" useJsp="default" roles="1=-1;2=-1">
+			<node id="98" type="4" label="DQL样例" useJsp="default" anaFile="analyseFiles/DQL样例.olap" analyseType="dataFile" roles="1=-1;2=-1" />
+		</node>
+		<node id="81" type="0" roles="1=2,3,4;2=1,2,3,4" label="金商百货批发公司（需DQL授权）" useJsp="default">
+			<node id="85" type="0" label="客户分析" roles="1=2,3,4;2=1,2,3,4" useJsp="default">
+				<node id="88" type="4" label="雇员商品分析" anaFile="analyseFiles/雇员商品分析.olap" analyseType="dataFile" roles="1=2,3,4;2=1,2,3,4" />
+				<node id="87" type="4" label="区域月度订单" anaFile="analyseFiles/区域月度订单.olap" analyseType="dataFile" roles="1=2,3,4;2=1,2,3,4" />
+				<node id="86" type="4" label="雇员客户分析" anaFile="analyseFiles/雇员客户分析.olap" analyseType="dataFile" roles="1=2,3,4;2=1,2,3,4" />
+			</node>
+			<node id="84" type="0" label="订单回款" roles="1=2,3,4;2=1,2,3,4">
+				<node id="91" type="4" label="客户回款分析" anaFile="analyseFiles/客户回款分析.olap" analyseType="dataFile" roles="1=2,3,4;2=1,2,3,4" />
+				<node id="90" type="4" label="区域订单回款" anaFile="analyseFiles/区域订单回款.olap" analyseType="dataFile" roles="1=2,3,4;2=1,2,3,4" />
+				<node id="89" type="4" label="月度回款分析" anaFile="analyseFiles/月度回款分析.olap" analyseType="dataFile" roles="1=2,3,4;2=1,2,3,4" />
+			</node>
+			<node id="83" type="0" label="决策支持" roles="1=2;2=1">
+				<node id="93" type="4" label="客户签单分析" anaFile="analyseFiles/客户签单分析.olap" analyseType="dataFile" roles="1=2;2=1" />
+				<node id="92" type="4" label="客户区域分析" anaFile="analyseFiles/客户区域分析.olap" analyseType="dataFile" roles="1=2;2=1" />
+			</node>
+		</node>
+	</tree>
+	<newRptId>99</newRptId>
+	<reports>
+		<!-- rpt和dfx文件缺省路径，在上传时候可选择，等同于在paths中配置 -->
+		<rptRoot>rpx</rptRoot>
+		<dfxRoot>dfx</dfxRoot>
+		<!-- 上传报表时候选择dfx脚本的话，可以将dfx保存到这里 -->
+		<report id="1" name="订单综合分析" rpt="00Dashboard/订单综合分析.rpx" type="1" relativePath="" />
+		<report id="2" name="设备故障分析" rpt="00Dashboard/设备故障分析.rpx" type="1" relativePath="" />
+		<report id="3" name="手机销售分析" rpt="00Dashboard/手机销售分析.rpx" type="1" relativePath="" />
+		<report id="4" name="网格式报表" rpt="10基本报表/网格式报表.rpx" type="1" relativePath="" />
+		<report id="5" name="分组报表" rpt="10基本报表/分组报表.rpx" type="1" relativePath="" />
+		<report id="6" name="订单" rpt="10基本报表/订单.rpx" type="1" relativePath="" />
+		<report id="7" name="订单明细" rpt="10基本报表/订单明细.rpx" type="1" relativePath="" />
+		<report id="8" name="报表组_arg" rpt="10基本报表/报表组_arg.rpx" type="2" relativePath="" />
+		<report id="9" name="报表组" rpt="10基本报表/报表组.rpg" type="1" relativePath="" />
+		<report id="10" name="层次坐标周期取数" rpt="20高级报表/层次坐标周期取数.rpx" type="1" relativePath="" />
+		<report id="11" name="多选模糊查询" rpt="20高级报表/多选模糊查询.rpx" type="1" relativePath="" />
+		<report id="12" name="多选模糊查询_arg" rpt="20高级报表/多选模糊查询_arg.rpx" type="2" relativePath="" />
+		<report id="13" name="复杂格间计算" rpt="20高级报表/复杂格间计算.rpx" type="1" relativePath="" />
+		<report id="14" name="交叉表动态合并格" rpt="20高级报表/交叉表动态合并格.rpx" type="1" relativePath="" />
+		<report id="15" name="龙型排序考生号" rpt="20高级报表/龙型排序考生号.rpx" type="1" relativePath="" />
+		<report id="16" name="条形码错位显示" rpt="20高级报表/条形码错位显示.rpx" type="1" relativePath="" />
+		<report id="17" name="组内页码及补空行" rpt="20高级报表/组内页码及补空行.rpx" type="1" relativePath="" />
+		<report id="18" name="表格联动" rpt="30交互报表/表格联动.rpg" type="1" relativePath="" />
+		<report id="19" name="表格联动-表格" rpt="30交互报表/表格联动-表格.rpx" type="1" relativePath="" />
+		<report id="20" name="地图联动" rpt="30交互报表/地图联动.rpg" type="1" relativePath="" />
+		<report id="21" name="地图联动-地区销售清单" rpt="30交互报表/地图联动-地区销售清单.rpx" type="1" relativePath="" />
+		<report id="22" name="地图联动-地区销售图" rpt="30交互报表/地图联动-地区销售图.rpx" type="1" relativePath="" />
+		<report id="23" name="地图联动-地区销售柱图" rpt="30交互报表/地图联动-地区销售柱图.rpx" type="1" relativePath="" />
+		<report id="24" name="地图联动-地图" rpt="30交互报表/地图联动-地图.rpx" type="1" relativePath="" />
+		<report id="25" name="点上表头排序" rpt="30交互报表/点上表头排序.rpx" type="1" relativePath="" />
+		<report id="26" name="动态交叉表" rpt="30交互报表/动态交叉表.rpx" type="1" relativePath="" />
+		<report id="27" name="动态交叉表_arg" rpt="30交互报表/动态交叉表_arg.rpx" type="2" relativePath="" />
+		<report id="28" name="汇总伸缩表" rpt="30交互报表/汇总伸缩表.rpx" type="1" relativePath="" />
+		<report id="29" name="组合查询条件" rpt="30交互报表/组合查询条件.rpx" type="1" relativePath="" />
+		<report id="30" name="组合查询条件_arg" rpt="30交互报表/组合查询条件_arg.rpx" type="2" relativePath="" />
+		<report id="31" name="subway" rpt="40集算器相关/subway.txt" type="9" relativePath="" />
+		<report id="32" name="table1" rpt="40集算器相关/table1.txt" type="9" relativePath="" />
+		<report id="33" name="table2" rpt="40集算器相关/table2.xlsx" type="9" relativePath="" />
+		<report id="34" name="按段分组" rpt="40集算器相关/按段分组.rpx" type="1" relativePath="" />
+		<report id="35" name="按段分组p1" rpt="40集算器相关/按段分组p1.dfx" type="8" relativePath="" />
+		<report id="36" name="错行分栏" rpt="40集算器相关/错行分栏.rpx" type="1" relativePath="" />
+		<report id="37" name="错行分栏p1" rpt="40集算器相关/错行分栏p1.dfx" type="8" relativePath="" />
+		<report id="38" name="地铁综合查询" rpt="40集算器相关/地铁综合查询.rpx" type="1" relativePath="" />
+		<report id="39" name="地铁综合查询_arg" rpt="40集算器相关/地铁综合查询_arg.rpx" type="2" relativePath="" />
+		<report id="40" name="多源分片" rpt="40集算器相关/多源分片.rpx" type="1" relativePath="" />
+		<report id="41" name="多源分片p1" rpt="40集算器相关/多源分片p1.dfx" type="8" relativePath="" />
+		<report id="42" name="多源分片p2" rpt="40集算器相关/多源分片p2.dfx" type="8" relativePath="" />
+		<report id="43" name="归并分组" rpt="40集算器相关/归并分组.rpx" type="1" relativePath="" />
+		<report id="44" name="归并分组p1" rpt="40集算器相关/归并分组p1.dfx" type="8" relativePath="" />
+		<report id="45" name="横向分栏" rpt="40集算器相关/横向分栏.rpx" type="1" relativePath="" />
+		<report id="46" name="横向分栏p1" rpt="40集算器相关/横向分栏p1.dfx" type="8" relativePath="" />
+		<report id="47" name="横向拼接列表" rpt="40集算器相关/横向拼接列表.rpx" type="1" relativePath="" />
+		<report id="48" name="横向拼接列表p1" rpt="40集算器相关/横向拼接列表p1.dfx" type="8" relativePath="" />
+		<report id="49" name="回款单" rpt="40集算器相关/回款单.txt" type="9" relativePath="" />
+		<report id="50" name="交叉报表" rpt="40集算器相关/交叉报表.rpx" type="1" relativePath="" />
+		<report id="51" name="交叉报表p1" rpt="40集算器相关/交叉报表p1.dfx" type="8" relativePath="" />
+		<report id="52" name="库间关联" rpt="40集算器相关/库间关联.rpx" type="1" relativePath="" />
+		<report id="53" name="库间关联p1" rpt="40集算器相关/库间关联p1.dfx" type="8" relativePath="" />
+		<report id="54" name="条件控制分组格式" rpt="40集算器相关/条件控制分组格式.rpx" type="1" relativePath="" />
+		<report id="55" name="条件控制分组格式p1" rpt="40集算器相关/条件控制分组格式p1.dfx" type="8" relativePath="" />
+		<report id="56" name="同期比" rpt="40集算器相关/同期比.rpx" type="1" relativePath="" />
+		<report id="57" name="同期比p1" rpt="40集算器相关/同期比p1.dfx" type="8" relativePath="" />
+		<report id="58" name="问卷" rpt="40集算器相关/问卷.txt" type="9" relativePath="" />
+		<report id="57" name="线索" rpt="40集算器相关/线索.txt" type="9" relativePath="" />
+		<report id="60" name="子表动态插入主表" rpt="40集算器相关/子表动态插入主表.rpx" type="1" relativePath="" />
+		<report id="61" name="子表动态插入主表p1" rpt="40集算器相关/子表动态插入主表p1.dfx" type="8" relativePath="" />
+		<report id="62" name="饼图" rpt="50统计图形/饼图.rpx" type="1" relativePath="" />
+		<report id="63" name="动态饼图" rpt="50统计图形/动态饼图.rpx" type="1" relativePath="" />
+		<report id="64" name="动态地图" rpt="50统计图形/动态地图.rpx" type="1" relativePath="" />
+		<report id="65" name="动态曲线图" rpt="50统计图形/动态曲线图.rpx" type="1" relativePath="" />
+		<report id="66" name="动态仪表盘" rpt="50统计图形/动态仪表盘.rpx" type="1" relativePath="" />
+		<report id="67" name="动态折线图" rpt="50统计图形/动态折线图.rpx" type="1" relativePath="" />
+		<report id="68" name="动态柱状图" rpt="50统计图形/动态柱状图.rpx" type="1" relativePath="" />
+		<report id="69" name="甘特图" rpt="50统计图形/甘特图.rpx" type="1" relativePath="" />
+		<report id="70" name="工字图" rpt="50统计图形/工字图.rpx" type="1" relativePath="" />
+		<report id="71" name="雷达图" rpt="50统计图形/雷达图.rpx" type="1" relativePath="" />
+		<report id="72" name="全距图" rpt="50统计图形/全距图.rpx" type="1" relativePath="" />
+		<report id="73" name="时间走势图" rpt="50统计图形/时间走势图.rpx" type="1" relativePath="" />
+		<report id="74" name="时序状态图" rpt="50统计图形/时序状态图.rpx" type="1" relativePath="" />
+		<report id="75" name="仪表盘" rpt="50统计图形/仪表盘.rpx" type="1" relativePath="" />
+		<report id="76" name="折线图" rpt="50统计图形/折线图.rpx" type="1" relativePath="" />
+		<report id="77" name="条形图" rpt="50统计图形/条形图.rpx" type="1" relativePath="" />
+		<report id="78" name="1104报表G01" rpt="60金融行业/1104报表G01.rpx" type="1" relativePath="" />
+		<report id="79" name="保险单" rpt="60金融行业/保险单.rpx" type="1" relativePath="" />
+		<report id="80" name="贷款展期审批书" rpt="60金融行业/贷款展期审批书.rpx" type="1" relativePath="" />
+		<report id="81" name="证券公司经营统计" rpt="60金融行业/证券公司经营统计.rpx" type="1" relativePath="" />
+		<report id="82" name="资产负债表" rpt="60金融行业/资产负债表.rpx" type="1" relativePath="" />
+		<report id="83" name="工程项目收益" rpt="70交通运输/工程项目收益.rpx" type="1" relativePath="" />
+		<report id="84" name="货运新增车辆" rpt="70交通运输/货运新增车辆.rpx" type="1" relativePath="" />
+		<report id="85" name="客运车辆类型" rpt="70交通运输/客运车辆类型.rpx" type="1" relativePath="" />
+		<report id="86" name="维修网点概况" rpt="70交通运输/维修网点概况.rpx" type="1" relativePath="" />
+		<report id="87" name="重点工程周报" rpt="70交通运输/重点工程周报.rpx" type="1" relativePath="" />
+		<report id="88" name="发电设备调查" rpt="80能源行业/发电设备调查.rpx" type="1" relativePath="" />
+		<report id="89" name="检验质量证明" rpt="80能源行业/检验质量证明.rpx" type="1" relativePath="" />
+		<report id="90" name="能源生产日志" rpt="80能源行业/能源生产日志.rpx" type="1" relativePath="" />
+		<report id="91" name="能源月报表" rpt="80能源行业/能源月报表.rpx" type="1" relativePath="" />
+		<report id="92" name="用电分类统计" rpt="80能源行业/用电分类统计.rpx" type="1" relativePath="" />
+		<report id="93" name="抽油机井指标统计" rpt="90更多报表/抽油机井指标统计.rpx" type="1" relativePath="" />
+		<report id="94" name="公积金清册" rpt="90更多报表/公积金清册.rpx" type="1" relativePath="" />
+		<report id="95" name="卷烟产值计算表" rpt="90更多报表/卷烟产值计算表.rpx" type="1" relativePath="" />
+		<report id="96" name="企业物流单" rpt="90更多报表/企业物流单.rpx" type="1" relativePath="" />
+		<report id="97" name="动态列" rpt="30交互报表/动态列.rpx" type="1" relativePath="" />
+		<report id="98" name="动态列_arg" rpt="30交互报表/动态列_arg.rpx" type="2" relativePath="" />
+	</reports>
+	<raqsoftConfig>WEB-INF/raqsoftConfig.xml</raqsoftConfig>
+	<usersdb />
+</reportCenter>
+

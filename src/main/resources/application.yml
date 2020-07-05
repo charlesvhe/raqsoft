@@ -1,0 +1,14 @@
+spring:
+  application.name: raqsoft
+#  mvc.view:
+#    prefix: /
+#    suffix: .jsp
+
+logging:
+  file: ${spring.application.name}.log
+  level:
+    root: INFO
+
+management.endpoints:
+  web.exposure.include: "*"
+  health.show-details: always

@@ -1,0 +1,18 @@
+<link href="chosen.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="chosen.jquery.min.js"></script>
+
+<select data-placeholder="Ñ¡Ôñ²¿ÃÅ" style="width:150px;" class="dept_select">
+    <option value="aaaaa">abcded</option>
+    <option value="ccccc">ddddd</option>
+    <option value="eeeee">fffff</option>
+    <option value="hhhhh">iiiiiiii</option>
+    <option value="jjjjjjj">kkkkkk</option>
+</select>
+<script>
+$(function(){
+    $('.dept_select').chosen({
+		search_contains: true
+	});
+});
+</script>

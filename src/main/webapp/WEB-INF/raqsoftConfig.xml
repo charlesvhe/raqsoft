@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--注意：为避免程序使用异常，raqsoftConfig.xml文件的编码格式必须设置为UTF-8 --><Config Version="1">
+    <Runtime>
+        <DBList>
+	<!-- 数据库类型编号，UNKNOWN:0; ORACLE:1; SQLSVR:2; SYBASE:3; SQLANY:4; INFMIX:5; FOXPRO:6; ACCESS:7; FOXBAS:8; DB2:9; MYSQL:10; KINGBASE:11; DERBY:12; HSQL:13; TERADATA:14;POSTGRES:15; DATALOGIC:16; IMPALA:17; ESSBASE:101; -->
+    <DB name="his_core">
+                <property name="url" value="jdbc:postgresql://wsl:5432/his_core" />
+                <property name="driver" value="org.postgresql.Driver" />
+                <property name="type" value="15" />
+                <property name="user" value="cbb" />
+                <property name="password" value="123456" />
+                <property name="batchSize" value="1000" />
+                <property name="autoConnect" value="false" />
+                <property name="useSchema" value="false" />
+                <property name="addTilde" value="false" />
+                <property name="dbCharset" value="UTF-8" />
+                <property name="clientCharset" value="UTF-8" />
+                <property name="needTransContent" value="false" />
+                <property name="needTransSentence" value="false" />
+                <property name="caseSentence" value="false" />
+            </DB>
+	<DB name="demo">
+                <property name="url" value="jdbc:hsqldb:hsql://127.0.0.1/demo" />
+                <property name="driver" value="org.hsqldb.jdbcDriver" />
+                <property name="type" value="13" />
+                <property name="user" value="sa" />
+                <property name="password" />
+                <property name="batchSize" value="1000" />
+                <property name="autoConnect" value="false" />
+                <property name="useSchema" value="false" />
+                <property name="addTilde" value="false" />
+                <property name="dbCharset" value="UTF-8" />
+                <property name="clientCharset" value="UTF-8" />
+                <property name="needTransContent" value="false" />
+                <property name="needTransSentence" value="false" />
+                <property name="caseSentence" value="false" />
+            </DB>
+	<DB name="dqldemo">
+                <property name="url" value="jdbc:hsqldb:hsql://127.0.0.1/dqldemo" />
+                <property name="driver" value="org.hsqldb.jdbcDriver" />
+                <property name="type" value="13" />
+                <property name="user" value="sa" />
+                <property name="password" />
+                <property name="batchSize" value="1000" />
+                <property name="autoConnect" value="false" />
+                <property name="useSchema" value="false" />
+                <property name="addTilde" value="false" />
+                <property name="dbCharset" value="UTF-8" />
+                <property name="clientCharset" value="UTF-8" />
+                <property name="needTransContent" value="false" />
+                <property name="needTransSentence" value="false" />
+                <property name="caseSentence" value="false" />
+            </DB>
+	<DB name="DataLogic">
+                <property name="url" value="jdbc:datalogic://127.0.0.1:3366/datalogic" />
+                <property name="driver" value="com.datalogic.jdbc.LogicDriver" />
+                <property name="type" value="16" />
+                <property name="user" value="root" />
+                <property name="password" value="root" />
+                <property name="batchSize" value="1000" />
+                <property name="autoConnect" value="false" />
+                <property name="useSchema" value="false" />
+                <property name="addTilde" value="false" />
+                <property name="dbCharset" value="UTF-8" />
+                <property name="clientCharset" value="UTF-8" />
+                <property name="needTransContent" value="false" />
+                <property name="needTransSentence" value="false" />
+                <property name="caseSentence" value="false" />
+            </DB>
+        </DBList>
+        <Esproc>
+            <license />
+            <charSet>UTF-8</charSet>
+            <dfxPathList>
+                <dfxPath>WEB-INF/reportFiles</dfxPath>
+            </dfxPathList>
+            <dateFormat>yyyy-MM-dd</dateFormat>
+            <timeFormat>HH:mm:ss</timeFormat>
+            <dateTimeFormat>yyyy-MM-dd HH:mm:ss</dateTimeFormat>
+            <mainPath />
+            <tempPath />
+            <bufSize>65536</bufSize>
+            <localHost />
+            <localPort>0</localPort>
+            <parallelNum>1</parallelNum>
+            <simpleTableBlockSize />
+            <nullStrings>nan,null,n/a</nullStrings>
+            <fetchCount />
+            <extLibsPath />
+        </Esproc>
+        <Report>
+            <license>C:\Users\charles\Downloads\reportV2018trialLicense20200731.xml</license>
+            <home>WEB-INF/reportFiles</home>
+            <styleConfig>tmp/reportStyleConfig.xml</styleConfig>
+            <showSQL>false</showSQL>
+        </Report>
+        <Input>
+            <home>WEB-INF/reportFiles</home>
+        </Input>
+    </Runtime>
+    <Server>
+    <!-- <JNDIList>
+            <JNDI name=" ">
+            <property name="type" value="1"/>
+            <property name="batchSize" value="1000"/>
+            <property name="lookup" value=" "/>
+            </JNDI>
+    </JNDIList>-->
+        <property name="raqsoftDir" value="raqsoft" />
+        <property name="jspCharset" value="UTF-8" />
+        <property name="cachedReportDir" value="cache/report" />
+        <property name="jreInstallName" value="/jre-6u45-windows-i586.exe#Version=1,6,0,0" />
+        <property name="cachedIdPrefix" value="A" />
+        <property name="maxWaitTimeForReport" value="9999" />
+        <property name="inputCachePath" value="cache/input" />
+        <property name="alwaysReloadDefine" value="yes" />
+        <property name="maxConcurrentForReport" value="9999" />
+        <property name="cachedReportTimeout" value="120" />
+        <property name="picFileExistTime" value="60" />
+        <property name="maxWaitForReport" value="9999" />
+        <property name="defDataSource" value="demo" />
+        <property name="maxDatasetValueNum" value="-1" />
+        <property name="logConfig" value="WEB-INF/raqsoftReportLog.properties" />
+        <property name="cachedParamsTimeout" value="120" />
+		<property name="theme" value="default" />
+    </Server>
+</Config>

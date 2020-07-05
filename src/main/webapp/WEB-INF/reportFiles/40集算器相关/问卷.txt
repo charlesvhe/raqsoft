@@ -1,0 +1,22 @@
+问题编号	线索编号	答案
+1	A01	yes
+2	A01	no
+3	A01	
+4	A01	yes
+5	A01	yes
+6	A02	yes
+7	A02	yes
+8	A02	yes
+9	A02	yes
+10	A02	yes
+11	A03	no
+12	A03	yes
+13	A03	no
+14	A03	yes
+15	A03	no
+16	A04	no
+17	A04	no
+18	A05	yes
+19	A05	no
+20	A05	no
+21	A05	no

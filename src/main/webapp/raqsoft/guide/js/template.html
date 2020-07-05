@@ -1,0 +1,347 @@
+<html>
+	<head>
+		<style>
+			
+			.selected { background: #64CE67; color: white; }
+
+		</style>
+	<script type="text/javascript" src="file:///D:/data/workspace/guide/web/raqsoft/guide/js/jquery-1.9.1.js"></script>
+	<script type="text/javascript" src="file:///D:/data/workspace/guide/web/raqsoft/guide/js/common.js"></script>
+<script type="text/javascript" src="file:///D:/data/workspace/guide/web/raqsoft/guide/js/vue.js"></script>
+</head>
+<body>
+<div id="analyseEdit">
+   <div style="margin:10px;">
+    <input type="text" :value="analyseName" style="width:210px;height:30px;" placeholder="指标名称"/>
+   </div>
+   <div style="margin: 10px; display: block;" id="newAnalyse">
+
+    <div>
+     <div id="analyseD1" v-if="leftLevels.length>0">
+      <div v-for="level in leftLevels" @click="levelClick(level.val,'left')" v-bind:class="{selected:level.select==1}" style="float: left; margin: 2px; padding: 5px; cursor: pointer;">{{level.title}}</div>
+      <div style="clear:both;"></div>
+     </div>
+     <div id="analyseD2" v-if="topLevels.length>0">
+      <div v-for="level in topLevels" @click="levelClick(level.val,'top')" v-bind:class="{selected:level.select==1}" style="float: left; margin: 2px; padding: 5px; cursor: pointer;">{{level.title}}</div>
+      <div style="clear:both;"></div>
+     </div>
+    </div>
+    <div style="border-left:3px solid lightgray;margin:10px 2px 0;padding-left:5px;">
+     <div id="analyseD3">
+      <div v-for="temp in templates" @click="changeTemplate(temp)" style="float: left; margin: 2px; padding: 5px; cursor: pointer;">{{temp.name}}</div>
+      <div style="clear:both;"></div>
+     </div>
+     <div id="analyseD4">
+      <input type="text" v-model="currTemplate.exp" style="width:280px;height:30px;margin-left:4px;" placeholder="分析表达式" id="analyseExp" />
+      <div v-for="(item,index) in currTemplate.items" style="margin:3px 7px 3px 3px;padding:3px;border-left:3px solid lightgray;" idx="0">      	
+       <img v-if="index==0" src="file:///D:/data/workspace/guide/web/raqsoft/guide//img/guide/13.png" style="vertical-align:-2px;cursor:pointer;margin:0 5px;visibility:hidden;" />
+       <img v-if="index!=0" @click="removeItem(item)" src="file:///D:/data/workspace/guide/web/raqsoft/guide//img/guide/13.png" style="vertical-align:-2px;cursor:pointer;margin:0 5px;" />
+       <span style="font-weight:bold;font-size:13px;margin-right:5px;">?{{index+1}}</span>
+       <select id="itemField" :value="item.field" style="width: 150px; margin: 3px 3px 3px 0px; color: rgb(51, 51, 51); background-color: rgb(248, 248, 248); border: 1px solid rgb(228, 228, 228); padding: 2px;" title="">
+       		<option v-for="f in allFields" :value="f">{{f}}</option>
+       </select>
+       <select id="itemValue" style="width: 75px; margin: 3px; color: rgb(51, 51, 51); background-color: rgb(248, 248, 248); border: 1px solid rgb(228, 228, 228); padding: 2px;" title=""><option value="curr">当前值</option><option value="find">查找值</option></select>
+       <select id="itemAggr" style="width: 75px; visibility: hidden; margin: 3px; color: rgb(51, 51, 51); background-color: rgb(248, 248, 248); border: 1px solid rgb(228, 228, 228); padding: 2px;" title=""><option value="sum">求和</option><option value="count">计数</option><option value="avg">平均</option><option value="max">最大</option><option value="min">最小</option><option value="first">第一个</option></select>
+       <div style="display:none;margin:3px 0 0 45px;">
+        <input type="text" value="" style="width:760px;height:26px;" placeholder="查找条件表达式" id="analyseItemExp" />
+        <div>
+         <a v="年当前值" href="javascript:void(0)" style="color: gray; padding: 5px; text-decoration: none;">年当前值</a>
+         <a v="年查找值" href="javascript:void(0)" style="color: gray; padding: 5px; text-decoration: none;">年查找值</a>
+         <a v="年当前序号" href="javascript:void(0)" style="color: gray; padding: 5px; text-decoration: none;">年当前序号</a>
+         <a v="年查找序号" href="javascript:void(0)" style="color: gray; padding: 5px; text-decoration: none;">年查找序号</a>
+         <a v="入库额求和当前值" href="javascript:void(0)" style="color: gray; padding: 5px; text-decoration: none;">入库额求和当前值</a>
+         <a v="入库额求和查找值" href="javascript:void(0)" style="color: gray; padding: 5px; text-decoration: none;">入库额求和查找值</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+         <a v="==" href="javascript:void(0)" style="color: rgb(51, 51, 51); padding: 5px; text-decoration: none;">等于</a>
+         <a v="&gt;" href="javascript:void(0)" style="color: rgb(51, 51, 51); padding: 5px; text-decoration: none;">大于</a>
+         <a v="&lt;" href="javascript:void(0)" style="color: rgb(51, 51, 51); padding: 5px; text-decoration: none;">小于</a>
+         <a v="&amp;&amp;" href="javascript:void(0)" style="color: rgb(51, 51, 51); padding: 5px; text-decoration: none;">并且</a>
+         <a v="||" href="javascript:void(0)" style="color: rgb(51, 51, 51); padding: 5px; text-decoration: none;">或者</a>
+        </div>
+       </div>
+      </div>
+      <div style="margin:3px 7px 3px 3px;padding:3px;border-left:3px solid lightgray;" idx="1">
+       <img src="file:///D:/data/workspace/guide/web/raqsoft/guide/img/guide/13.png" style="vertical-align:-2px;cursor:pointer;margin:0 5px;" />
+       <span style="font-weight:bold;font-size:13px;margin-right:5px;">?2</span>
+       <select id="itemField" style="width: 150px; margin: 3px 3px 3px 0px; color: rgb(51, 51, 51); background-color: rgb(248, 248, 248); border: 1px solid rgb(228, 228, 228); padding: 2px;" title=""><option value="年">年</option><option value="入库额求和">入库额求和</option></select>
+       <select id="itemValue" style="width: 75px; margin: 3px; color: rgb(51, 51, 51); background-color: rgb(248, 248, 248); border: 1px solid rgb(228, 228, 228); padding: 2px;" title=""><option value="curr">当前值</option><option value="find">查找值</option></select>
+       <select id="itemAggr" style="width: 75px; visibility: visible; margin: 3px; color: rgb(51, 51, 51); background-color: rgb(248, 248, 248); border: 1px solid rgb(228, 228, 228); padding: 2px;" title=""><option value="sum">求和</option><option value="count">计数</option><option value="avg">平均</option><option value="max">最大</option><option value="min">最小</option><option value="first">第一个</option></select>
+       <div style="display: block; margin: 3px 0px 0px 45px;">
+        <input type="text" value="年当前序号==(年查找序号+2)" style="width:760px;height:26px;" placeholder="查找条件表达式" id="analyseItemExp" />
+        <div>
+         <a v="年当前值" href="javascript:void(0)" style="color: gray; padding: 5px; text-decoration: none;">年当前值</a>
+         <a v="年查找值" href="javascript:void(0)" style="color: gray; padding: 5px; text-decoration: none;">年查找值</a>
+         <a v="年当前序号" href="javascript:void(0)" style="color: gray; padding: 5px; text-decoration: none;">年当前序号</a>
+         <a v="年查找序号" href="javascript:void(0)" style="color: gray; padding: 5px; text-decoration: none;">年查找序号</a>
+         <a v="入库额求和当前值" href="javascript:void(0)" style="color: gray; padding: 5px; text-decoration: none;">入库额求和当前值</a>
+         <a v="入库额求和查找值" href="javascript:void(0)" style="color: gray; padding: 5px; text-decoration: none;">入库额求和查找值</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+         <a v="==" href="javascript:void(0)" style="color: rgb(51, 51, 51); padding: 5px; text-decoration: none;">等于</a>
+         <a v="&gt;" href="javascript:void(0)" style="color: rgb(51, 51, 51); padding: 5px; text-decoration: none;">大于</a>
+         <a v="&lt;" href="javascript:void(0)" style="color: rgb(51, 51, 51); padding: 5px; text-decoration: none;">小于</a>
+         <a v="&amp;&amp;" href="javascript:void(0)" style="color: rgb(51, 51, 51); padding: 5px; text-decoration: none;">并且</a>
+         <a v="||" href="javascript:void(0)" style="color: rgb(51, 51, 51); padding: 5px; text-decoration: none;">或者</a>
+        </div>
+       </div>
+      </div>
+      <img src="file:///D:/data/workspace/guide/web/raqsoft/guide/img/guide/9.png" style="vertical-align:-2px;cursor:pointer;margin:0 5px;" />
+     </div>
+    </div>
+   </div>
+   <div style="margin:10px;display:none;" id="confItemAggrs"></div>
+   <div style="margin:10px;display:none;" id="confItemAnalyse"></div>
+   <div style="margin:10px;display:none;" id="confItemAnalyseGroups"></div>
+</div>
+<script>
+	
+	
+	var lefts = ["l1","l2","l3"];
+	var tops = ["t1","t2"];
+	var dims = ["l1","l2","l3","t1","t2"];
+	var fields = ["f1","f2"];
+	var allFields = ["l1","l2","l3","t1","t2","f1","f2"];
+	var lastDim = dims[dims.length-1];
+	
+	var nas = [
+		{//排名
+			exp : '?1+1'// ?1/?2，?1代表下面第一个子项
+			,name : '排名'
+			,items : [
+					{
+						field:fields[0]//数据来源字段，可以是维或测度或其它分析字段，但分析字段不能互相引用
+						,pos:[
+							/*
+							{
+								dim : ''
+								,type : 1// 1当前； 2全部； 3第几个； 4当前往前第几个； 5当前往后第几个
+								,value : 0//第几个、当前往前第几个、当前往后第几个
+							}
+							*/
+						]
+						,exp:fields[0]+'当前值<'+fields[0]+'查找值' //'上层维度字段或本测度字段' fieldCurrValue/fieldFindValue/fieldCurrSeq/fieldFindSeq
+						,aggr:'count' //count/avg/sum/max/min/first
+					}
+			]
+		}
+		,{//占比
+			exp : '?1/?2'// ?1/?2，?1代表下面第一个子项
+			,name : '占比'
+			,items : [
+					{
+						field:fields[0]//数据来源字段，可以是维或测度或其它分析字段，但分析字段不能互相引用
+						,pos:[
+						]
+						,exp:'' //'上层维度字段或本测度字段' fieldCurrValue/fieldFindValue/fieldCurrSeq/fieldFindSeq
+						,aggr:'first' //count/avg/sum/max/min/first
+					}
+					,{
+						field:fields[0]//数据来源字段，可以是维或测度或其它分析字段，但分析字段不能互相引用
+						,pos:[
+						]
+						,exp:'' //'上层维度字段或本测度字段' fieldCurrValue/fieldFindValue/fieldCurrSeq/fieldFindSeq
+						,aggr:'sum' //count/avg/sum/max/min/first
+					}
+			]
+		}
+		,{//环比
+			exp : '?1/?2'// ?1/?2，?1代表下面第一个子项
+			,name : '环比'
+			,items : [
+					{
+						field:fields[0]//数据来源字段，可以是维或测度或其它分析字段，但分析字段不能互相引用
+						,pos:[
+						]
+						,exp:'' //'上层维度字段或本测度字段' fieldCurrValue/fieldFindValue/fieldCurrSeq/fieldFindSeq
+						,aggr:'first' //count/avg/sum/max/min/first
+					}
+					,{
+						field:fields[0]//数据来源字段，可以是维或测度或其它分析字段，但分析字段不能互相引用
+						,pos:[
+						]
+						,exp:lastDim+'当前序号=='+lastDim+'查找序号+'+1 //'上层维度字段或本测度字段' fieldCurrValue/fieldFindValue/fieldCurrSeq/fieldFindSeq
+						,aggr:'first' //count/avg/sum/max/min/first
+					}
+			]
+		}
+		,{//累积
+			exp : '?1'// ?1/?2，?1代表下面第一个子项
+			,name : '累积'
+			,items : [
+					{
+						field:fields[0]//数据来源字段，可以是维或测度或其它分析字段，但分析字段不能互相引用
+						,pos:[
+						]
+						,exp:lastDim+'当前序号>='+lastDim+'查找序号' //'上层维度字段或本测度字段' fieldCurrValue/fieldFindValue/fieldCurrSeq/fieldFindSeq
+						,aggr:'sum' //count/avg/sum/max/min/first
+					}
+			]
+		}
+		,{//同比
+			exp : '?1/?2'// ?1/?2，?1代表下面第一个子项
+			,name : '同比'
+			,items : [
+					{
+						field:fields[0]//数据来源字段，可以是维或测度或其它分析字段，但分析字段不能互相引用
+						,pos:[
+						]
+						,exp:'' //'上层维度字段或本测度字段' fieldCurrValue/fieldFindValue/fieldCurrSeq/fieldFindSeq
+						,aggr:'first' //count/avg/sum/max/min/first
+					}
+					,{
+						field:fields[0]//数据来源字段，可以是维或测度或其它分析字段，但分析字段不能互相引用
+						,pos:[
+						]
+						,exp:lastDim+'当前序号==('+lastDim+'查找序号+4)' //'上层维度字段或本测度字段' fieldCurrValue/fieldFindValue/fieldCurrSeq/fieldFindSeq
+						,aggr:'first' //count/avg/sum/max/min/first
+					}
+			]
+		}
+	];
+	for (var i=0; i<dims.length; i++) {
+		nas[0].items[0].pos[i] = {dim:dims[i],type:2,value:0};
+
+		nas[1].items[0].pos[i] = {dim:dims[i],type:1,value:0};
+		nas[1].items[1].pos[i] = {dim:dims[i],type:2,value:0};
+
+		nas[2].items[0].pos[i] = {dim:dims[i],type:1,value:0};
+		nas[2].items[1].pos[i] = {dim:dims[i],type:2,value:0};
+
+		nas[3].items[0].pos[i] = {dim:dims[i],type:2,value:0};
+		
+		nas[4].items[0].pos[i] = {dim:dims[i],type:1,value:0};
+		nas[4].items[1].pos[i] = {dim:dims[i],type:2,value:0};
+	}
+	
+
+/*
+	var nas2 = [
+		{//排名
+			exp : '?1+1'// ?1/?2，?1代表下面第一个子项
+			,items : [
+				{
+					field:aggrs[0]
+					,value:'find' //当前值、查找值
+					//以下属性只针对find
+					,aggr:'count'
+					,exp:aggrs[0]+'当前值<'+aggrs[0]+'查找值' //'上层维度字段或本测度字段'
+				}
+			]
+		}
+		,{//占比
+			exp : '?1/?2'// ?1/?2，?1代表下面第一个子项
+			,items : [
+				{
+					field:aggrs[0]
+					,value:'curr' //当前值、查找值
+					,aggr:'first'
+					,exp:''
+				}
+				,{
+					field:aggrs[0]
+					,value:'find' //当前值、查找值
+					//以下属性只针对find
+					,aggr:'sum'
+					,exp:''
+				}
+			]
+		}
+		,{//环比
+			exp : '?1/?2'// ?1/?2，?1代表下面第一个子项
+			,items : [
+				{
+					field:aggrs[0]
+					,value:'curr' //当前值、查找值
+					,aggr:'first'
+					,exp:''
+				}
+				,{
+					field:aggrs[0]
+					,value:'find' //当前值、查找值
+					//以下属性只针对find
+					,aggr:'first'
+					,exp:lastDim+'当前序号=='+lastDim+'查找序号+'+1
+				}
+			]
+		}
+		,{//累积
+			exp : '?1'// ?1/?2，?1代表下面第一个子项
+			,items : [
+				{
+					field:aggrs[0]
+					,value:'find' //当前值、查找值
+					//以下属性只针对find
+					,aggr:'sum'
+					,exp:lastDim+'当前序号>='+lastDim+'查找序号'
+				}
+			]
+		}
+		,{//同比
+			exp : '?1/?2'// ?1/?2，?1代表下面第一个子项
+			,items : [
+				{
+					field:aggrs[0]
+					,value:'curr' //当前值、查找值
+					,aggr:'count'
+					,exp:''
+				}
+				,{
+					field:aggrs[0]
+					,value:'find' //当前值、查找值
+					//以下属性只针对find
+					,aggr:'first'
+					,exp:lastDim+'当前序号==('+lastDim+'查找序号+4)'
+				}
+			]
+		}
+	];
+*/	
+	$(document).ready(function(){
+		var analyseEdit = new Vue({
+		  el: '#analyseEdit',
+		  data: {
+		    message : 'Hello Vue!'
+		    ,analyseName : 'aaa'
+		    ,leftLevels : [{val:'root',title:'左表头根层',select:1},{val:'大区',title:'大区',select:1}]
+		    ,topLevels : [{val:'root',title:'上表头根层',select:1},{val:'年',title:'年',select:1}]
+		    ,templates : nas
+		    ,currTemplate : nas[0]
+		    ,classt : true
+				,lefts : ["l1","l2","l3"]
+				,tops : ["t1","t2"]
+				,dims : ["l1","l2","l3","t1","t2"]
+				,fields : ["f1","f2"]
+				,allFields : ["l1","l2","l3","t1","t2","f1","f2"]
+				,lastDim : dims[dims.length-1]
+		  }
+		  ,methods : {
+		  	levelClick : function(val,type) {
+		  		//alert(val);
+		  		var ls = type=='left'?this.leftLevels:this.topLevels;
+		  		//alert(ls);
+		  		var select = 1;
+		  		for (var i in ls) {
+		  			//alert(ls[ii].val);
+		  			ls[i].select = select;
+		  			//alert(ii.val+"--"+ii.select);
+		  			if (ls[i].val == val) {
+		  				select = 0;
+		  			} 
+		  		}
+		  	}
+		  	,changeTemplate : function(temp) {
+		  		this.currTemplate = temp;
+		  		//alert(temp.name);
+		  	}
+		  	,removeItem : function(item) {
+		  		this.currTemplate.items.remove(item);
+		  	}
+		  }
+		});
+		
+		analyseEdit.leftLevels = [{val:'root',title:'左表头根层',select:1},{val:'l1',title:'l1',select:1},{val:'l2',title:'l2',select:1},{val:'l3',title:'l3',select:1}]
+		analyseEdit.topLevels = [{val:'root',title:'上表头根层',select:1},{val:'t1',title:'t1',select:1},{val:'t2',title:'t2',select:1}]
+	});
+	
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+@charset "utf-8";
+/* CSS Document */
+@media screen {
+	body{
+		margin:auto;
+		
+		width:auto;
+		}
+	img{
+		width: 100%;
+		}
+	#headerImage{
+		width: 100%;
+		}
+		
+	#container{
+		position:relative;
+		text-align:center;
+		width:auto;
+		}
+	p{
+		font-family:"微软雅黑", "宋体";
+		font-size:1.1em;
+		color:#FFF;
+		}
+	#main{
+		position:relative;
+		width:100%;
+		background-image:url(images/bg.jpg);
+		MARGIN-RIGHT: auto; 
+		MARGIN-LEFT: auto;
+		}
+	#cent{
+		position:relative;
+		}
+	#kg1{
+		width:100%;
+		}
+	#kg2{
+		width:100%;
+		}
+	#kg3{
+		width:100%;
+		}
+	#kg4{
+		width:100%;
+		}
+	.leftImg{
+		width:35%;
+		/*display:inline-block;*/
+		margin-top:5%;
+		padding-left:10%;
+		padding-right:10%;
+		float:left;
+		}
+	.rightImg{
+		width:35%;
+		/*display:inline-block;*/
+		margin-top:5%;
+		float:left;
+		padding-right:5%;
+		}
+
+	#nextImage{ clear:both;margin:0 0 3em 0; padding:4em 0 0 0;}
+		
+	.more{
+		position:relative;
+		margin-left:5%;
+		margin-right:5%;
+		margin-top:5%;
+		padding:2%;background:#667784;
+		}
+

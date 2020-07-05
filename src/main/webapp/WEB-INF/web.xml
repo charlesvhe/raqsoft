@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+    <listener>  
+	    <listener-class>com.raqsoft.center.listener.UserSessionListener</listener-class>  
+    </listener> 
+	<listener>  
+		<listener-class>com.raqsoft.guide.web.GuideSessionListener</listener-class>  
+	</listener>
+	<!-- 报表中心手机登录状态过滤器  -->
+  	<filter>
+	    <filter-name>mobileLoginFilter</filter-name>
+	    <filter-class>com.raqsoft.center.console.mobile.MobileLoginFilter</filter-class>
+	 </filter>
+	<filter-mapping>
+	    <filter-name>mobileLoginFilter</filter-name>
+	    <url-pattern>/raqsoft/center/mobile/jsp/*</url-pattern>
+	</filter-mapping>
+	<!-- 报表中心浏览器版登录状态过滤器  -->
+	<filter>
+	    <filter-name>loginFilter</filter-name>
+	    <filter-class>com.raqsoft.center.console.LoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>loginFilter</filter-name>
+	    <url-pattern>/raqsoft/center/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+	    <filter-name>loginFilter</filter-name>
+	    <url-pattern>/reportCenterServlet</url-pattern>
+	</filter-mapping>
+	<filter>
+	    <filter-name>encodingFilter</filter-name>
+	    <filter-class>com.raqsoft.report.webutil.CharacterEncodingFilter</filter-class>
+	    <init-param>
+	        <param-name>encoding</param-name>
+	        <param-value>UTF-8</param-value>
+	    </init-param>
+	</filter>
+	<filter-mapping>
+	    <filter-name>encodingFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+  <servlet>
+    <servlet-name>DLServlet</servlet-name>
+    <servlet-class>com.raqsoft.guide.web.dl.DLServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>dataSphereServlet</servlet-name>
+    <servlet-class>com.raqsoft.guide.web.DataSphereServlet</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <!-- 访问路径均为： http://127.0.0.1:端口号/项目名称/reportCenter  -->
+  <!-- 报表中心servlet定义  -->
+<servlet>
+    <servlet-name>reportCenterServlet</servlet-name>
+    <servlet-class>com.raqsoft.center.console.ReportCenterServlet</servlet-class> 
+</servlet>
+<!-- 报表中心上传servlet定义  -->
+<servlet>
+    <servlet-name>centerUpload</servlet-name>
+    <servlet-class>com.raqsoft.center.console.file.UploadFilesServlet</servlet-class>  
+    </servlet>
+  <servlet>
+    <servlet-name>reportServlet</servlet-name>
+    <servlet-class>com.raqsoft.report.view.ReportServlet</servlet-class>
+    <init-param>
+      <param-name>configFile</param-name>
+      <param-value>/WEB-INF/raqsoftConfig.xml</param-value>
+    </init-param>
+	 <init-param>
+      <param-name>headless</param-name>
+      <param-value>none</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>setContext</servlet-name>
+    <servlet-class>com.raqsoft.report.webutil.setContextServlet</servlet-class>
+    <load-on-startup>4</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>com.raqsoft.report.usermodel.PrintSetupServlet</servlet-name>
+    <servlet-class>com.raqsoft.report.usermodel.PrintSetupServlet</servlet-class>
+    <init-param>
+      <param-name>saveDisplayScale</param-name>
+      <param-value>yes</param-value>
+    </init-param>
+  </servlet>
+  <servlet>
+    <servlet-name>com.raqsoft.report.view.PagedPrint</servlet-name>
+    <servlet-class>com.raqsoft.report.view.PagedPrint</servlet-class>
+  </servlet>
+  <servlet>
+		<servlet-name>InputServlet</servlet-name>
+		<servlet-class>com.raqsoft.input.view.InputServlet</servlet-class>
+		<!--填报集群设置-->
+		<init-param>
+		<param-name>configFile</param-name>
+		<param-value>/WEB-INF/raqsoftConfig.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>CenterInitServlet</servlet-name>
+    <servlet-class>com.raqsoft.center.CenterInitServlet</servlet-class>
+    <init-param>
+      <param-name>configFile</param-name>
+      <param-value>/WEB-INF/reportCenter.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+		<servlet-name>weixinLogin</servlet-name>
+		<servlet-class>com.raqsoft.weixin.WeixinLoginServlet</servlet-class>
+		<init-param>
+			<param-name>config</param-name>
+			<param-value>/WEB-INF/weixin.properties</param-value>
+		</init-param>
+		<load-on-startup>10</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>weixinLogin</servlet-name>
+		<url-pattern>/wxlogin</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>weixinLogin</servlet-name>
+		<url-pattern>/raqsoft/center/wxlogin</url-pattern>
+	</servlet-mapping>
+
+<!--远程服务-->
+	<servlet>
+	<servlet-name>ReportCenterServletIde</servlet-name>
+	<servlet-class>com.raqsoft.center.console.ide.ReportCenterServlet</servlet-class>
+	<init-param>
+		<param-name>configFile</param-name>
+		<param-value>/WEB-INF/raqsoftConfig.xml</param-value>
+	</init-param>
+	</servlet>
+
+	<servlet-mapping>
+	<servlet-name>ReportCenterServletIde</servlet-name>
+	<url-pattern>/reportCenterServlet/ide</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>InputServlet</servlet-name>
+		<url-pattern>/InputServlet</url-pattern>
+	</servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>com.raqsoft.report.usermodel.PrintSetupServlet</servlet-name>
+    <url-pattern>/servlet/PrintSetupServlet</url-pattern>
+  </servlet-mapping>
+   <servlet-mapping>
+    <servlet-name>dataSphereServlet</servlet-name>
+    <url-pattern>/servlet/dataSphereServlet</url-pattern>
+  </servlet-mapping>
+  <!-- 报表中心上传servlet的url映射路径  -->
+   <servlet-mapping>
+    <servlet-name>centerUpload</servlet-name>
+    <url-pattern>/reportCenterServlet/upload</url-pattern>
+  </servlet-mapping>
+   <!-- 报表中心servlet的url映射路径  -->
+   <servlet-mapping>
+    <servlet-name>reportCenterServlet</servlet-name>
+    <url-pattern>/reportCenterServlet</url-pattern>
+  </servlet-mapping>
+     <servlet-mapping>
+    <servlet-name>reportCenterServlet</servlet-name>
+    <url-pattern>/raqsoft/center/mobile/jsp/reportCenterServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DLServlet</servlet-name>
+    <url-pattern>/DLServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DLServlet</servlet-name>
+    <url-pattern>/DLServletAjax</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>reportServlet</servlet-name>
+    <url-pattern>/reportServlet</url-pattern>
+  </servlet-mapping>
+   <servlet-mapping>
+	    <servlet-name>CenterInitServlet</servlet-name>
+	    <url-pattern>/centerInit</url-pattern>
+  	</servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>com.raqsoft.report.view.PagedPrint</servlet-name>
+    <url-pattern>/servlet/pagedPrintServer</url-pattern>
+  </servlet-mapping>
+
+  <taglib>
+    <taglib-uri>/WEB-INF/raqsoftReport.tld</taglib-uri>
+    <taglib-location>/WEB-INF/raqsoftReport.tld</taglib-location>
+  </taglib>
+<taglib>
+    <taglib-uri>/WEB-INF/raqsoftInput.tld</taglib-uri>
+    <taglib-location>/WEB-INF/raqsoftInput.tld</taglib-location>
+  </taglib>
+ <taglib>
+    <taglib-uri>/WEB-INF/raqsoftQuery.tld</taglib-uri>
+    <taglib-location>/WEB-INF/raqsoftQuery.tld</taglib-location>
+  </taglib>
+  <taglib>
+    <taglib-uri>/WEB-INF/raqsoftAnalyse.tld</taglib-uri>
+    <taglib-location>/WEB-INF/raqsoftAnalyse.tld</taglib-location>
+  </taglib>
+  	<listener>  
+	    <listener-class>com.raqsoft.input.view.InputSessionListener</listener-class>  
+	</listener> 
+	<session-config>
+ 		<session-timeout>30</session-timeout>
+ 	</session-config>
+</web-app>

@@ -1,0 +1,9 @@
+.sideMenu{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.activeSideMenu{
+	border-left:solid 1px white;
+}

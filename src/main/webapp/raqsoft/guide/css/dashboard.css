@@ -1,0 +1,32 @@
+@CHARSET "UTF-8";
+.singleArea{
+	height:98.5%;
+	width:98.5%;
+	border-style: dotted;
+	border-width: 2px;
+	border-color: gray;
+	position:absolute!important;
+	z-index:999
+}
+.dash_show{
+	display:block!important;
+}
+
+.plus,.del{
+	height:30px;
+	width:30px;
+	position:relative;
+}
+
+.divCell{
+	border-width: 1px;
+}
+
+.ui-resizable-se{
+	background-image: none!important;
+}
+
+.choosedDiv{
+	border-width:2px!important;
+	border-color:red;
+}

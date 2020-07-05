@@ -1,0 +1,7 @@
+.file,.folder{
+	border:solid 1px;
+	border-color: #eeeeee;
+	display: flex;
+	color:black!important;
+	margin-left:20px
+}

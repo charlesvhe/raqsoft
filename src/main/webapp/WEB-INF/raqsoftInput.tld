@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
+"http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+
+<!-- 
+
+			<prefix:input
+				id=模板标识   //缺省为sg
+				src=模板文件名
+				paramMode=si   //s指示在session中取dfx参数，i指示在params中取 
+				params=参数串		//参数串格式：参数名=参数值;...
+				excel=io    //含i时生成导入按钮，含o时生成导出按钮，大小写不敏感
+				dfx=				//处理数据的dfx
+				theme=
+
+		needImportEasyui = null;
+		width = null;
+		height = null;
+		tabLocation= null;
+		
+		saveAsName
+		
+
+			/> 
+
+-->
+
+<taglib>
+  <tlibversion>1.0</tlibversion>
+  <jspversion>1.1</jspversion>
+  <shortname>Raqsoft Input Tags</shortname>
+  <tag>
+    <name>input</name>
+    <tagclass>com.raqsoft.input.tag.InputTag</tagclass>
+    <bodycontent>JSP</bodycontent>
+    <!-- 填报表ID -->
+    <attribute>
+      <name>id</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 填报表文件  *.sht-->
+    <attribute>
+      <name>src</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 参数模式 i/p/r ,i：params参数值不脱双引号；p：脱双引号；r:从request里获取。 默认i -->
+    <attribute>
+      <name>paramMode</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- paramName1=value1;paramName2=value2 -->
+    <attribute>
+      <name>params</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- io，是否需要输入输出excel，默认需要 -->
+    <attribute>
+      <name>excel</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 界面风格default/bootstrap/black/gray/metro，默认default -->
+    <attribute>
+      <name>theme</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 填报表控件是否需要引入easyui库，默认yes -->
+    <attribute>
+      <name>needImportEasyui</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 控件宽度，默认800 -->
+    <attribute>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 控件高度 ，默认600-->
+    <attribute>
+      <name>height</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- sheet tab的位置 top/bottom，默认top -->
+    <attribute>
+      <name>tabLocation</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- yes/no，默认yes -->
+    <attribute>
+      <name>fixedHeader</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- yes以文件方式自动存取数据/no用户自定义存取数据的dfx； 假如未指定，则数据来源和数据去向都缺失时，采用yes。弃用，由adp取代 -->
+    <attribute>
+      <name>noDfx</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- automatic data processing自动数据处理，adp=yes/no，yes以文件方式自动存取数据/no用户自定义存取数据的方式(脚本、dfx文件或多源SQL）;假如未指定，则数据来源和数据去向都缺失时，采用yes。取代原来的noDfx -->
+    <attribute>
+        <name>adp</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 自动存取数据的文件，相对于raqsoftConfig.xml里的inputHome，可以带上路径，如path1/fname -->
+    <attribute>
+      <name>file</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+	<!-- 保存文件的数据格式json/binary， 默认json -->
+    <attribute>
+      <name>fileType</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+	<!-- 参数作为外部维，以逗号分隔的参数名 -->
+    <attribute>
+      <name>outerDim</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 错误异常信息页面，默认inputErrorPage.jsp -->
+    <attribute>
+      <name>exceptionPage</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+	<!-- 导出excel默认的文件名 -->
+    <attribute>
+      <name>saveAsName</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+	<!-- 导出excel时，对自动计算公式选用什么处理方式：1、导公式，有异常就直接抛出错误，终止导出；   2、导公式出错时导出值；  3、只导值；默认1-->
+    <attribute>
+      <name>exportExcelExpType</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+	<!-- 填报表sheet的水平对齐方式，取值left或center，默认left -->
+    <attribute>
+      <name>sheetAlign</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>paramCheck</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+	<!-- 填报表是否可编辑 -->
+	<attribute>
+      <name>editable</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+	<!-- 是否对传入的参数自动转换成不同的数据类型 -->
+    <attribute>
+      <name>parseParam</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 导出Excel时，给高度为0的隐藏行重新设置高度，默认0不变，否则变成设置的高度 -->
+    <attribute>
+      <name>hideRowHeight</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 导出Excel时，高度为0的隐藏行是否根据内容自动撑高行高，yes/no -->
+    <attribute>
+      <name>autoRowHeight</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 是否自动填充维度格生成多层维序列表达式 -->
+    <attribute>
+      <name>autoFillDimExp</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 确认提交提示-->
+    <attribute>
+      <name>prompt</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 配置多源sql提交时候使用的update选项  -->
+    <attribute>
+      <name>update</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+
+  <tag>
+    <name>aggr</name>
+    <tagclass>com.raqsoft.input.tag.AggrTag</tagclass>
+    <bodycontent>JSP</bodycontent>
+    <!-- 统计表模板文件 -->
+    <attribute>
+      <name>id</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 统计表模板文件 -->
+    <attribute>
+      <name>src</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 参数模式 i/r ,i：params参数值不脱双引号；r:从request里获取。 默认i -->
+    <attribute>
+      <name>mode</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 数据文件，mode=i时，多个文件路径以分号分隔，最后的文件名支持通配符*和？，前面路径不支持，;mode=r时，这里为request里的变量名 -->
+    <attribute>
+      <name>dataFiles</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- yes/no，默认yes -->
+    <attribute>
+      <name>fixedHeader</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+	<!-- 保存文件的数据格式json/binary， 默认json -->
+    <attribute>
+      <name>fileType</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 错误异常信息页面，默认inputErrorPage.jsp -->
+    <attribute>
+      <name>exceptionPage</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 界面风格default/bootstrap/black/gray/metro， 默认default -->
+    <attribute>
+      <name>theme</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 填报表控件是否需要引入easyui库 ，默认yes-->
+    <attribute>
+      <name>needImportEasyui</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 控件宽度 默认800 -->
+    <attribute>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 控件高度  默认600-->
+    <attribute>
+      <name>height</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- sheet tab的位置 top/bottom， 默认top -->
+    <attribute>
+      <name>tabLocation</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+	<!-- 导出excel默认的文件名 -->
+    <attribute>
+      <name>saveAsName</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+	<!-- 导出excel时，对自动计算公式选用什么处理方式：1、导公式，有异常就直接抛出错误，终止导出；   2、导公式出错时导出值；  3、只导值；默认2-->
+    <attribute>
+      <name>exportExcelExpType</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+	<!-- 填报表sheet的水平对齐方式，取值left或center，默认left -->
+    <attribute>
+      <name>sheetAlign</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!-- 导出Excel时，给高度为0的隐藏行重新设置高度，默认0不变，否则变成设置的高度 -->
+    <attribute>
+      <name>hideRowHeight</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+   <!-- 导出Excel时，高度为0的隐藏行是否根据内容自动撑高行高，yes/no -->
+    <attribute>
+      <name>autoRowHeight</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>  
+  </tag>
+
+</taglib>

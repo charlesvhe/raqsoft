@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>润乾产品试用</title>
+<!--baidu TongJi-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?2ed84d0183a98a7b957fdc81fa379e13";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>	
+</head>
+<style>
+	body{margin: 0; padding: 0; background: #f8f8f8;}
+	.container{margin: 0 auto; padding: 0; width: 1000px; height:100%; background: url(images/login.png) no-repeat center top ; background-size:  100% auto ; background-attachment:inherit;  box-shadow:0px 0px 5px rgba(0,0,0,.4);   }	
+	.login{ border-radius: 20px;  box-shadow:0px 0px 5px rgba(0,0,0,.4); background: #fff;  width: 300px; margin: 60px 100px 55px 0px; float: right; padding: 20px ; text-align: center; }
+	.login h2{font-size: 32px; line-height: 0px; color: rgba(76,75,94,1.00);  }
+	.login img{ height: 200px; width: 200px; margin:0 auto;}
+	.login p{ line-height:1.5em; }
+	.footer{clear: both; background: rgba(76,75,94,1.00); color: #fff; padding: 20px; margin: 0 auto; text-align: center; line-height: 2em;}
+	.clearboth{ clear: both;}
+	</style>
+
+<body>
+	<div class="container">
+		<div class="login">
+			<h2>润乾产品试用</h2>
+		    <div id="wxqrcode">
+		    </div>
+		</div>
+		<div class="clearboth"></div>
+		<div class="footer">京ICP备07503732号-12<br>© Copyright 北京润乾信息系统技术有限公司</div>
+	</div>
+<script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+<script>
+    $.ajax('./wxlogin?action=qrparam',{
+        data:{
+        },
+        dataType:'json',//服务器返回json格式数据
+        type:'POST',//HTTP请求类型
+        timeout:30000,//超时时间设置为30秒；
+        success:function(data){//服务器返回响应，根据响应结果，分析是否登录成功；
+            if( data.error ){
+                alert( data.error.substring( 6 ) );
+                return;
+            }
+            var obj = new WxLogin({
+                id: "wxqrcode",
+                appid: data.appid,
+                scope: "snsapi_login,snsapi_userinfo",
+                redirect_uri: data.redirect_uri,
+                state: data.state,
+                style: "black",
+                href: ""
+            });
+        },
+        error:function(xhr,type,errorThrown){//异常处理
+        }
+    });
+</script>
+	
+</body>
+</html>

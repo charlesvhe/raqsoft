@@ -1,0 +1,40 @@
+<html>
+	<script type="text/javascript" src="jquery-1.9.1.js"></script>
+<body>
+	<iframe id=f1 src=""></iframe>
+	<div id=div1 style="width:400px;height:100px;border:1px solid red">
+		<select>
+		    <option value="1">item1</option>
+		    <option value="2">item2</option>
+		    <option value="3">item3</option>
+		    <option value="4">item4</option>
+		    <option value="5">item5</option>
+		</select>
+		<script>
+			function cc() {
+				alert( "old cccc" );
+			}
+		</script>
+	</div>
+	<input type=button value=go onclick="aa()">
+	<input type=button value=back onclick="bb()">
+	<input type=button value=cc onclick="cc()">
+	<script>
+		function aa() {
+			$("<div id=div2></div>").appendTo( $("#f1").contents().find( "body" ) );
+			$("#div1").children().appendTo( $("#f1").contents().find( "#div2" ) );
+			$( "<script>function cc() { alert( \"new cccc......\" );}</scr" + "ipt><div id=ddd></div>" ).appendTo( "#div1" );
+		}
+		function bb() {
+			$( "#div1" ).html( "" );
+			$("#f1").contents().find( "#div2" ).appendTo( "#div1" );
+			$('#div1').find('script').each(function(){
+				//var sci = $('<script></scri'+'pt>');
+				//$('head').append(sci);
+				var h = $(this).html();
+				$(this).html('').html(h);
+			});
+		}
+	</script>
+</body>
+</html>
